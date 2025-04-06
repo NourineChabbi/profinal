@@ -112,5 +112,13 @@ const products = [
         "description": "Pantalon de survêtement uni taille haute pour femme - Pantalon de jogging baggy - Pantalon de sport",
         "category": "femme"
     },
+    {
+        "_id": "67d7ece04b8b17c609e3100b",
+        "name": "Fiacafyo",
+        "price": 89,
+        "img": "https://m.media-amazon.com/images/I/71Pgxa6SRiL._AC_SY445_.jpg",
+        "description": "Jean baggy Y2K pour femme - Taille basse - Coupe droite - Avec poches - Pantalon streetwear",
+        "category": "femme"
+    }
 ];
 export default products;

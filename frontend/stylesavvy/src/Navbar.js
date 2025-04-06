@@ -13,15 +13,15 @@ function Navbar() {
       </div>
       <ul className="nav-menu">
         <li>
-          <Link style={{ textDecoration: 'none', color: '#333' }} to="/shop">shop</Link>
+          <Link style={{ textDecoration: 'none', color: '#333' }} to="/shop">Shop</Link>
         </li>
         <li>
-          <Link style={{ textDecoration: 'none', color: '#333' }} to="/men">men</Link>
+          <Link style={{ textDecoration: 'none', color: '#333' }} to="/men">Men</Link>
         </li>
-        <li> <Link style={{ textDecoration: 'none', color: '#333' }} to="/women">women</Link>
+        <li> <Link style={{ textDecoration: 'none', color: '#333' }} to="/women">Women</Link>
         </li>
         <li>
-          <Link style={{ textDecoration: 'none', color: '#333' }} to="/kids">kids</Link>
+          <Link style={{ textDecoration: 'none', color: '#333' }} to="/kids">Kids</Link>
         </li>
       </ul>
       <div className="nav-login-cart">

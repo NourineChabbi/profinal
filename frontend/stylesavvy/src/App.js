@@ -9,7 +9,8 @@ import Login from './Login';
 import Footer from './Footer';
 import Cart from './Cart';
 import Men from './Men';
-
+import ProductDetails from './ProductDetails';
+import DescriptionBox from './DescriptionBox';
 function App() {
   return (
     <Router>
@@ -22,7 +23,8 @@ function App() {
               <Route path="/women" element={<women/>} /> 
               <Route path="/kids" element={<kids/>} /> 
               <Route path="/login" element={<Login/>} /> 
-              <Route path="/cart" element={<Cart/>} /> 
+              <Route path="/cart" element={<Cart/>} />
+              <Route path="/product/:id" element={<><ProductDetails /><DescriptionBox/></>} /> 
             </Routes>
           </div>
           <Footer/>
