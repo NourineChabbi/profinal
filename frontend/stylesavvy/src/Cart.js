@@ -3,7 +3,7 @@ import { useCart } from "./CartContext";
 import "./Cart.css";
 
 const Cart = () => {
-  const { cartItems, removeFromCart, decreaseQuantity, addToCart, totalPrice } = useCart(); // إضافة addToCart هنا
+  const { cartItems, removeFromCart, decreaseQuantity, addToCart, totalPrice } = useCart(); 
 
   if (cartItems.length === 0) return <h2>Your cart is empty</h2>;
 
@@ -31,7 +31,7 @@ const Cart = () => {
               <td>
                 <button onClick={() => decreaseQuantity(item._id)}>-</button>
                 <span>{item.quantity}</span>
-                <button onClick={() => addToCart(item)}>+</button> {/* إضافة دالة addToCart هنا */}
+                <button onClick={() => addToCart(item)}>+</button>
               </td>
               <td>TND {item.price * item.quantity}</td>
               <td>

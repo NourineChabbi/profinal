@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import "./ProductDetails.css";
-import { useCart } from "./CartContext"; // تأكد من المسار هذا
+import { useCart } from "./CartContext";
 
 const ProductDetails = () => {
   const { id } = useParams();
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
-  const { addToCart } = useCart(); // خلي هذه في الأعلى
+  const { addToCart } = useCart(); 
 
   useEffect(() => {
     fetch(`http://localhost:5000/product/${id}`)

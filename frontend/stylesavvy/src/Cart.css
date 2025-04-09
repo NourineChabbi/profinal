@@ -31,7 +31,7 @@
   }
   
   .cart-table td button {
-    background-color: #dc3545; /* اللون الأحمر */
+    background-color: #dc3545; 
     color: white;
     border: none;
     padding: 5px 10px;
@@ -41,7 +41,7 @@
   }
   
   .cart-table td button:hover {
-    background-color: #c82333; /* اللون الأحمر الداكن */
+    background-color: #c82333; 
   }
   
   .cart-table td span {
@@ -90,16 +90,13 @@
     font-size: 18px;
   }
   
-  /* أزرار "+" و "-" */
   .cart-item div button {
-    background-color: #ff4141; /* اللون الأحمر */
+    background-color: #ff4141; 
   }
   
   .cart-item div button:hover {
     background-color: #f95b5b; 
   }
-  
-  /* زر "Remove" */
   .remove-btn {
     background-color: #ff4141;
     color: white;
