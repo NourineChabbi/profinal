@@ -4,6 +4,7 @@ import footer_logo from './Assests/logo.jpg'
 import insta_icon from './Assests/insta_icon.png'
 import facebook_icon from './Assests/facebook_icon.png'
 import github_icon from './Assests/github_icon.png'
+import linkedin_icon from './Assests/linkedin_icon.png'
 function Footer() {
   return (
     <div className='footer'>
@@ -20,13 +21,16 @@ function Footer() {
       </ul>
       <div className="footer-social">
         <a href="https://www.instagram.com/ur___nourine_/" target="i" rel="noopener noreferrer">
-        <img src={insta_icon} alt="" style={{width: "25px", height:"25px" , cursor:"pointer"}}/>
+        <img src={insta_icon} alt="" style={{width: "25px", height:"25px" , cursor:"pointer", marginRight:"5px"}}/>
         </a>
         <a href="https://github.com/NourineChabbi" target="i" rel="noopener noreferrer">
         <img src={github_icon} alt="" style={{width: "25px", height:"25px" , cursor:"pointer"}}/>
         </a>
         <a href="https://www.facebook.com/nourine.chabbi.1" target="i" rel="noopener noreferrer">
-        <img src={facebook_icon} alt="" style={{width: "30px", height:"30px", cursor:"pointer" }}/>
+        <img src={facebook_icon} alt="" style={{width: "32px", height:"32px", cursor:"pointer" }}/>
+        </a>
+        <a href="https://www.linkedin.com/in/nourine-chabbi-64311a333/" target="i" rel="noopener noreferrer">
+        <img src={linkedin_icon} alt="" style={{width: "32px", height:"32px", cursor:"pointer" }}/>
         </a>
       </div>
       <div className="footer-copyright">

@@ -1,0 +1,32 @@
+.search-results-container {
+    padding: 20px;
+  }
+  
+  .search-results {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin-top: 20px;
+  }
+  
+  .search-product-card {
+    width: 200px;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    padding: 10px;
+    text-align: center;
+    transition: 0.3s;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+  }
+  
+  .search-product-card:hover {
+    box-shadow: 0 3px 8px rgba(0,0,0,0.2);
+    transform: translateY(-4px);
+  }
+  
+  .search-product-card img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+  }
+  

@@ -1,34 +1,42 @@
-.navbar{
+.navbar {
     display: flex;
-    justify-content:space-around ;
+    justify-content: space-around;
+    align-items: center;
     padding: 12px;
-    box-shadow: 0 1px 3px -2px black; 
+    box-shadow: 0 1px 3px -2px black;
+    background-color: white;
+    position: sticky;
+    top: 0;
+    z-index: 100;
 }
-.nav-logo{
+
+.nav-logo {
     display: flex;
     align-items: center;
     gap: 10px;
-    height: 12px;
 }
-.nav-logo img{
+
+.nav-logo img {
     width: 50px;
     height: auto;
 }
-.nav-logo p{
+
+.nav-logo p {
     color: #171717;
     font-size: 28px;
     font-weight: 600;
 }
-.nav-menu{
+
+.nav-menu {
     display: flex;
     align-items: center;
     list-style: none;
     gap: 50px;
-    color: #626262;
     font-size: 20px;
     font-weight: 500;
 }
-.nav-menu li{
+
+.nav-menu li {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -36,16 +44,19 @@
     gap: 3px;
     cursor: pointer;
     position: relative;
-    font-size: 21px;
-    font-weight: 500;
-    color: #626262;
     transition: color 0.3s ease-in-out;
 }
+
+.nav-menu li a {
+    text-decoration: none;
+    color: #333;
+}
+
 .nav-menu li::after {
     content: "";
     width: 0;
     height: 3px;
-    background: #FF4141; 
+    background: #FF4141;
     border-radius: 10px;
     position: absolute;
     bottom: -5px;
@@ -55,18 +66,53 @@
 }
 
 .nav-menu li:hover {
-    color: #FF4141; 
+    color: #FF4141;
 }
 
 .nav-menu li:hover::after {
-    width: 100%; 
+    width: 100%;
 }
-.nav-login-cart{
-    display:flex;
+
+.nav-search {
+    display: flex;
+    align-items: center;
+    background: #f1f1f1;
+    border-radius: 50px;
+    overflow: hidden;
+    padding: 5px 10px;
+}
+
+.nav-search input {
+    border: 2px solid transparent;
+    background: transparent;
+    padding: 8px 12px;
+    font-size: 16px;
+    outline: none;
+    width: 150px;
+    transition: border 0.3s ease;
+    border-radius: 30px;
+}
+
+.nav-search button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 18px;
+    padding: 5px 8px;
+    color: #444;
+}
+
+.nav-search button:hover {
+    color: #FF4141;
+}
+
+.nav-login-cart {
+    display: flex;
     align-items: center;
     gap: 40px;
 }
-.nav-login-cart button{
+
+.nav-login-cart button {
     width: 157px;
     height: 58px;
     outline: none;
@@ -78,12 +124,15 @@
     background: white;
     cursor: pointer;
 }
-.nav-login-cart button:active{
+
+.nav-login-cart button:active {
     background: #FF4141;
+    color: white;
 }
-.nav-cart-count{
+
+.nav-cart-count {
     width: 22px;
-    height:22px;
+    height: 22px;
     display: flex;
     justify-content: center;
     align-items: center;

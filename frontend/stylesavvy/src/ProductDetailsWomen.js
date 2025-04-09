@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import "./ProductDetails.css";
-import { useCart } from "./CartContext"; // تأكد من المسار هذا
+import "./ProductDetailsWomen.css";
+import { useCart } from "./CartContext"; 
 
-const ProductDetails = () => {
+const ProductDetailsWomen = () => {
   const { id } = useParams();
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
-  const { addToCart } = useCart(); // خلي هذه في الأعلى
+  const { addToCart } = useCart(); 
 
   useEffect(() => {
     fetch(`http://localhost:5000/product/${id}`)
@@ -48,12 +48,10 @@ const ProductDetails = () => {
 
         <div className="sizes">
           <p>Select Size:</p>
-          <div className="size-buttons">
-            <button>S</button>
-            <button>M</button>
-            <button>L</button>
-            <button>XL</button>
-          </div>
+          <button>S</button>
+          <button>M</button>
+          <button>L</button>
+          <button>XL</button>
         </div>
 
         <button className="add-to-cart" onClick={() => addToCart(product)}>ADD TO CART</button>
@@ -68,8 +66,5 @@ const ProductDetails = () => {
   );
 };
 
-export default ProductDetails;
-
-
-
+export default ProductDetailsWomen;
 
