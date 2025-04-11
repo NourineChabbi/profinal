@@ -5,20 +5,20 @@ import "./Kids.css";
 
 const Kids = () => {
   const [Products, setProducts] = useState([]);
-      const [shownProducts, setShownProducts] = useState(12); // State for tracking number of shown products
-    
-      useEffect(() => {
-        fetch("http://localhost:5000/product/kids")
-          .then((res) => res.json())
-          .then((data) => {
-            setProducts(data);
-          })
-          .catch((error) => {
-            console.log(error);
-          });
-      }, []);
-    
-      const totalProducts = Products.length;
+  const [shownProducts, setShownProducts] = useState(12); // State for tracking number of shown products
+
+  useEffect(() => {
+    fetch("http://localhost:5000/product/kids")
+      .then((res) => res.json())
+      .then((data) => {
+        setProducts(data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
+
+  const totalProducts = Products.length;
     
     const handleExploreMore = () => {
       setShownProducts(prev => Math.min(prev + 12, totalProducts));

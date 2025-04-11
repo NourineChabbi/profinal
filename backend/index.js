@@ -1,11 +1,12 @@
 var express = require('express');
 var app = express();
+var cors =require('cors')
 var port = 5000;
 var hostname = "127.0.0.1";
 var mongoose = require("mongoose");
 var url = "mongodb://127.0.0.1:27017/project";
 var bodyParser = require("body-parser");
-
+app.use(cors())
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -38,7 +39,6 @@ app.get('/user', function(req,res){
             res.status(500).send("error finding users");
         });
 });
-
 // USER METHOD GET USER BY ID
 app.get('/user/:id', function(req, res) {
     var userId = req.params.id;
@@ -121,6 +121,48 @@ app.get('/product', function (req,res){
         })
 });
 
+app.get('/product/men', function (req, res) {
+
+    product.find( {category: "homme"} )
+        .then(function(product) {
+            if (!product) {
+                return res.status(404).send("Product not found");
+            }
+            res.json(product);
+        })
+        .catch(function(error) {
+            console.error("Error fetching product by ID:", error);
+            res.status(500).send("Error finding product");
+        });
+});
+app.get('/product/women', function (req, res) {
+
+    product.find( {category: "femme"} )
+        .then(function(product) {
+            if (!product) {
+                return res.status(404).send("Product not found");
+            }
+            res.json(product);
+        })
+        .catch(function(error) {
+            console.error("Error fetching product by ID:", error);
+            res.status(500).send("Error finding product");
+        });
+});
+app.get('/product/kids', function (req, res) {
+
+    product.find( {category: "enfant"} )
+        .then(function(product) {
+            if (!product) {
+                return res.status(404).send("Product not found");
+            }
+            res.json(product);
+        })
+        .catch(function(error) {
+            console.error("Error fetching product by ID:", error);
+            res.status(500).send("Error finding product");
+        });
+});
 // PRODUCT METHOD GET PRODUCT BY ID
 app.get('/product/:id', function (req, res) {
     var productId = req.params.id;
@@ -139,7 +181,6 @@ app.get('/product/:id', function (req, res) {
 });
 
 "http://127.0.0.1:5000/product"
-
 //PRODUCT METHOD POST
 app.post('/postproduct', function(req,res){
     var newProduct = new product({
@@ -149,7 +190,6 @@ app.post('/postproduct', function(req,res){
         description:req.body.description,
         category:req.body.category
     });
-
     newProduct.save()
         .then(function(product){
             res.status(201).json({message: "Product created successfuly", product: product});
@@ -182,6 +222,97 @@ app.put('/updateproduct/:id', function(req, res) {
             res.status(500).send("Error updating product");
         });
 });
+
+
+//login function and signup function 
+
+// Signup route
+app.post('/signup', async function (req, res) {
+    const { name, email, password } = req.body;
+
+    try {
+        // Check if the user already exists
+        const existingUser = await user.findOne({ email });
+        if (existingUser) {
+            return res.status(400).json({ message: "User already exists" });
+        }
+
+        // Hash password
+        const hashedPassword = await bcrypt.hash(password, 10);
+
+        // Create new user
+        const newUser = new user({
+            name,
+            email,
+            password: hashedPassword
+        });
+
+        await newUser.save();
+        res.status(201).json({ message: "User created successfully" });
+    } catch (error) {
+        console.error("Error signing up:", error);
+        res.status(500).send("Error signing up user");
+    }
+});
+const bcrypt = require('bcryptjs');
+
+// Signup Route
+app.post('/signup', async (req, res) => {
+    const { name, email, password } = req.body;
+
+    try {
+        // Check if the user already exists
+        const existingUser = await user.findOne({ email });
+        if (existingUser) {
+            return res.status(400).json({ message: "Email already registered" });
+        }
+
+        // Hash the password
+        const hashedPassword = await bcrypt.hash(password, 10);
+
+        // Create new user
+        const newUser = new user({
+            name,
+            email,
+            password: hashedPassword
+        });
+
+        await newUser.save();
+        res.status(201).json({ message: "Signup successful" });
+    } catch (error) {
+        console.error("Signup error:", error);
+        res.status(500).send("Something went wrong during signup");
+    }
+});
+
+// Login Route
+app.post('/login', async (req, res) => {
+    const { email, password } = req.body;
+
+    try {
+        // Find user by email
+        const existingUser = await user.findOne({ email });
+        if (!existingUser) {
+            return res.status(400).json({ message: "Invalid email or password" });
+        }
+
+        // Compare password
+        const isMatch = await bcrypt.compare(password, existingUser.password);
+        if (!isMatch) {
+            return res.status(400).json({ message: "Invalid email or password" });
+        }
+
+        res.json({ message: "Login successful" });
+    } catch (error) {
+        console.error("Login error:", error);
+        res.status(500).send("Something went wrong during login");
+    }
+});
+
+
+
+
+
 
 app.listen(port, hostname, () =>{
     console.log(`running server at http://${hostname}:${port}/`);
