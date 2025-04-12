@@ -223,54 +223,21 @@ app.put('/updateproduct/:id', function(req, res) {
         });
 });
 
-
 //login function and signup function 
-
-// Signup route
-app.post('/signup', async function (req, res) {
-    const { name, email, password } = req.body;
-
-    try {
-        // Check if the user already exists
-        const existingUser = await user.findOne({ email });
-        if (existingUser) {
-            return res.status(400).json({ message: "User already exists" });
-        }
-
-        // Hash password
-        const hashedPassword = await bcrypt.hash(password, 10);
-
-        // Create new user
-        const newUser = new user({
-            name,
-            email,
-            password: hashedPassword
-        });
-
-        await newUser.save();
-        res.status(201).json({ message: "User created successfully" });
-    } catch (error) {
-        console.error("Error signing up:", error);
-        res.status(500).send("Error signing up user");
-    }
-});
-const bcrypt = require('bcryptjs');
-
 // Signup Route
+const jwt = require('jsonwebtoken');
+
 app.post('/signup', async (req, res) => {
     const { name, email, password } = req.body;
 
     try {
-        // Check if the user already exists
         const existingUser = await user.findOne({ email });
         if (existingUser) {
             return res.status(400).json({ message: "Email already registered" });
         }
 
-        // Hash the password
         const hashedPassword = await bcrypt.hash(password, 10);
 
-        // Create new user
         const newUser = new user({
             name,
             email,
@@ -278,12 +245,17 @@ app.post('/signup', async (req, res) => {
         });
 
         await newUser.save();
-        res.status(201).json({ message: "Signup successful" });
+
+        // Generate JWT token
+        const token = jwt.sign({ userId: newUser._id }, 'your_secret_key', { expiresIn: '1h' });
+
+        res.status(201).json({ message: "Signup successful", token });
     } catch (error) {
         console.error("Signup error:", error);
-        res.status(500).send("Something went wrong during signup");
+        res.status(500).json({ message: "Internal server error", error: error.message });
     }
 });
+
 
 // Login Route
 app.post('/login', async (req, res) => {
@@ -308,11 +280,6 @@ app.post('/login', async (req, res) => {
         res.status(500).send("Something went wrong during login");
     }
 });
-
-
-
-
-
 
 app.listen(port, hostname, () =>{
     console.log(`running server at http://${hostname}:${port}/`);
