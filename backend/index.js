@@ -1,11 +1,13 @@
 var express = require('express');
 var app = express();
 var cors =require('cors')
-var port = 5000;
+var port = 5001;
 var hostname = "127.0.0.1";
 var mongoose = require("mongoose");
 var url = "mongodb://127.0.0.1:27017/project";
 var bodyParser = require("body-parser");
+const bcrypt = require('bcrypt');
+
 app.use(cors())
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
