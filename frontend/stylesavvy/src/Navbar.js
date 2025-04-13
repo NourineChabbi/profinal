@@ -1,12 +1,14 @@
-import React, { useState } from 'react';
+import React,{ useContext, useState } from 'react';
 import './Navbar.css';
 import logo from './Assests/logo.jpg';
 import cart_icon from './Assests/cart_icon.png';
 import { Link, useNavigate } from "react-router-dom";
+import { UserContext } from "./UserContext";
 
 function Navbar() {
   const [searchTerm, setSearchTerm] = useState('');
   const navigate = useNavigate();
+  const { user } = useContext(UserContext);
 
   const handleSearch = (e) => {
     e.preventDefault();
@@ -41,10 +43,14 @@ function Navbar() {
       </form>
 
       <div className="nav-login-cart">
-        <Link to='/login'><button>Login</button></Link>
-        <Link to='/cart'><img src={cart_icon} alt="cart" /></Link>
-        <div className="nav-cart-count">0</div>
-      </div>
+      {user ? (
+  <span style={{ marginRight: "10px", fontWeight: "bold" }}>{user.name}</span>
+) : (
+  <Link to='/login'><button>Login</button></Link>
+)}
+      <Link to='/cart'><img src={cart_icon} alt="cart" /></Link>
+      <div className="nav-cart-count">0</div>
+    </div>
     </div>
   );
 }

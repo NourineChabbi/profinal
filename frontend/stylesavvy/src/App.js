@@ -17,8 +17,12 @@ import Kids from './Kids';
 import ProductDetailsKids from './ProductDetailsKids';
 import SearchResults from './SearchResults';
 import { CartProvider } from './CartContext';
+import SignUp from './SignUp';
+import { UserProvider } from './UserContext'; // add this
+
 function App() {
   return (
+    <UserProvider>
     <CartProvider>
     <Router>
           <Navbar />
@@ -35,11 +39,13 @@ function App() {
               <Route path="/product-women/:id" element={<><ProductDetailsWomen /><DescriptionBox/></>} />
               <Route path="/product-kids/:id" element={<><ProductDetailsKids /><DescriptionBox/></>} />
               <Route path="/search" element={<SearchResults/>}/>
+              <Route path="/signup" element={<SignUp/>}/>
             </Routes>
           </div>
           <Footer/>
         </Router>
     </CartProvider>
+    </UserProvider>
   );
 }
 

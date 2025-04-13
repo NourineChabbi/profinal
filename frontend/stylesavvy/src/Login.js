@@ -1,15 +1,18 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import './Login.css';
 import axios from "axios";
+import { Link, useNavigate } from 'react-router-dom';
+import { UserContext } from "./UserContext"; // ✅ import UserContext
 
 function Login() {
   const [formData, setFormData] = useState({
-    name: "",
     email: "",
     password: "",
   });
 
   const [errorMessage, setErrorMessage] = useState("");
+  const { setUser } = useContext(UserContext); // ✅ useContext here only
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -19,17 +22,16 @@ function Login() {
     e.preventDefault();
 
     try {
-      const response = await axios.post("http://127.0.0.1:5000/login", formData);
+      const response = await axios.post("http://127.0.0.1:5001/login", formData);
 
-      alert("Login successful!");
       localStorage.setItem("token", response.data.token);
 
-      setFormData({
-        name: "",
-        email: "",
-        password: "",
-      });
+      setUser(response.data.user); // ✅ this updates the Navbar
+      alert("Login successful!");
+
+      setFormData({ email: "", password: "" });
       setErrorMessage("");
+      navigate("/shop"); // ✅ navigate to shop
     } catch (error) {
       console.error("Login failed", error);
       setErrorMessage("Wrong Email or Password");
@@ -39,17 +41,9 @@ function Login() {
   return (
     <div className='loginsignup'>
       <div className="loginsignup-container">
-        <h1>Sign Up</h1>
+        <h1>Login</h1>
         <form onSubmit={handleSubmit}>
           <div className="loginsignup-fields">
-            <input
-              type="text"
-              name="name"
-              placeholder="Your name"
-              value={formData.name}
-              onChange={handleChange}
-              required
-            />
             <input
               type="email"
               name="email"
@@ -72,7 +66,7 @@ function Login() {
         </form>
 
         <p className="loginsignup-login">
-          Don’t have an account? <span>Sign up here</span>
+          Don’t have an account? <Link to="/signup"><span>Sign up here</span></Link>
         </p>
 
         <div className="loginsignup-agree">
@@ -85,5 +79,3 @@ function Login() {
 }
 
 export default Login;
-
-
