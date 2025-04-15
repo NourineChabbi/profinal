@@ -1,21 +1,37 @@
-import React,{ useContext, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import './Navbar.css';
 import logo from './Assests/logo.jpg';
 import cart_icon from './Assests/cart_icon.png';
 import { Link, useNavigate } from "react-router-dom";
 import { UserContext } from "./UserContext";
+import MenCategory from "./MenCategory";
+import WomenCategory from "./WomenCategory";
+import KidsCategory from "./KidsCategory";
 
 function Navbar() {
   const [searchTerm, setSearchTerm] = useState('');
-  const navigate = useNavigate();
+  const [showResults, setShowResults] = useState(false);
   const { user } = useContext(UserContext);
+  const navigate = useNavigate();
 
-  const handleSearch = (e) => {
-    e.preventDefault();
-    if (searchTerm.trim()) {
-      navigate(`/search?query=${searchTerm}`);
-      setSearchTerm('');
-    }
+  const allProducts = [...MenCategory, ...WomenCategory, ...KidsCategory];
+
+  const filteredResults = allProducts.filter((product) =>
+    product.name.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
+  const handleChange = (e) => {
+    const value = e.target.value;
+    setSearchTerm(value);
+    setShowResults(value.trim() !== '');
+  };
+
+  const handleResultClick = (id, category) => {
+    if (category === "Men") navigate(`/product/${id}`);
+    else if (category === "Women") navigate(`/product-women/${id}`);
+    else if (category === "Kids") navigate(`/product-kids/${id}`);
+    setSearchTerm('');
+    setShowResults(false);
   };
 
   return (
@@ -32,28 +48,44 @@ function Navbar() {
         <li><Link to="/kids">Kids</Link></li>
       </ul>
 
-      <form className="nav-search" onSubmit={handleSearch}>
+      <div className="nav-search">
         <input
           type="text"
           placeholder="Search..."
           value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
+          onChange={handleChange}
         />
-        <button type="submit">🔍</button>
-      </form>
+        {showResults && (
+          <div className="search-dropdown">
+            {filteredResults.length === 0 ? (
+              <p className="search-no-result">No products found</p>
+            ) : (
+              filteredResults.slice(0, 6).map((product) => (
+                <div
+                  key={product._id}
+                  className="search-result-item"
+                  onClick={() => handleResultClick(product._id, product.category)}
+                >
+                  <img src={product.img} alt={product.name} width={30} height={30} />
+                  <span>{product.name}</span>
+                </div>
+              ))
+            )}
+          </div>
+        )}
+      </div>
 
       <div className="nav-login-cart">
-      {user ? (
-  <span style={{ marginRight: "10px", fontWeight: "bold" }}>{user.name}</span>
-) : (
-  <Link to='/login'><button>Login</button></Link>
-)}
-      <Link to='/cart'><img src={cart_icon} alt="cart" /></Link>
-      <div className="nav-cart-count">0</div>
-    </div>
+        {user ? (
+          <span style={{ marginRight: "10px", fontWeight: "bold" }}>{user.name}</span>
+        ) : (
+          <Link to='/login'><button>Login</button></Link>
+        )}
+        <Link to='/cart'><img src={cart_icon} alt="cart" /></Link>
+        <div className="nav-cart-count">0</div>
+      </div>
     </div>
   );
 }
 
 export default Navbar;
-

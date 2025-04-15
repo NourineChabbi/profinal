@@ -1,31 +1,36 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useLocation } from "react-router-dom";
 import "./ProductDetails.css";
 import { useCart } from "./CartContext";
 
 const ProductDetails = () => {
   const { id } = useParams();
-  const [product, setProduct] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const { addToCart } = useCart(); 
+  const location = useLocation();
+  const { addToCart } = useCart();
+
+  const passedProduct = location.state?.product;
+  const [product, setProduct] = useState(passedProduct || null);
+  const [loading, setLoading] = useState(!passedProduct);
 
   useEffect(() => {
-    fetch(`http://localhost:5000/product/${id}`)
-      .then((res) => {
-        if (!res.ok) {
-          throw new Error("Product not found");
-        }
-        return res.json();
-      })
-      .then((data) => {
-        setProduct(data);
-        setLoading(false);
-      })
-      .catch((err) => {
-        console.error(err);
-        setLoading(false);
-      });
-  }, [id]);
+    if (!product) {
+      fetch(`http://localhost:5001/product/${id}`) // ✅ Updated to port 5001
+        .then((res) => {
+          if (!res.ok) {
+            throw new Error("Product not found");
+          }
+          return res.json();
+        })
+        .then((data) => {
+          setProduct(data);
+          setLoading(false);
+        })
+        .catch((err) => {
+          console.error(err);
+          setLoading(false);
+        });
+    }
+  }, [id, product]);
 
   if (loading) return <h2>Loading...</h2>;
   if (!product) return <h2>Product not found</h2>;
@@ -69,6 +74,9 @@ const ProductDetails = () => {
 };
 
 export default ProductDetails;
+
+
+
 
 
 

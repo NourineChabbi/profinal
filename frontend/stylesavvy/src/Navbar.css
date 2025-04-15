@@ -143,3 +143,41 @@
     background: red;
     color: white;
 }
+
+
+.search-dropdown {
+    position: absolute;
+    top: 60px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: white;
+    border: 1px solid #ddd;
+    width: 280px;
+    max-height: 300px;
+    overflow-y: auto;
+    z-index: 99;
+    border-radius: 5px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  }
+  
+  .search-result-item {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    cursor: pointer;
+  }
+  
+  .search-result-item:hover {
+    background-color: #f7f7f7;
+  }
+  
+  .search-result-item img {
+    margin-right: 10px;
+  }
+  
+  .search-no-result {
+    padding: 10px;
+    text-align: center;
+    color: #666;
+  }
+  

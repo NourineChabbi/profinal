@@ -81,7 +81,6 @@ h1 {
 }
 
 .add-to-cart {
-    background: #007bff;
     color: white;
     padding: 10px;
     border: none;
@@ -90,10 +89,6 @@ h1 {
     width: 100%;
     cursor: pointer;
     font-size: 16px;
-}
-
-.add-to-cart:hover {
-    background: #0056b3;
 }
 
 .explore-more {
